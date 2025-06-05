@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom, #000 0%, #1a0000 100%);
+      background: #000;
       color: #ff3333;
       font-family: 'UnifrakturCook', cursive;
       display: flex;
@@ -18,9 +18,6 @@
       justify-content: center;
       height: 100vh;
       overflow: hidden;
-      background-image: url('https://i.imgur.com/1cYxV9z.jpg');
-      background-size: cover;
-      background-position: center;
     }
 
     h1 {
@@ -44,6 +41,7 @@
       text-shadow: 0 0 5px #ff0000;
       margin-top: 30px;
       animation: pulse 2s infinite;
+      text-align: center;
     }
 
     #start-btn {
@@ -116,7 +114,7 @@
           messageElement.innerHTML = "⛧ O selo foi quebrado. Eles estão entre nós. ⛧";
           setTimeout(() => {
             window.location.href = "https://purgatorio666.github.io/Inferno/"; // <-- ALTERE AQUI
-          }, 5000); // espera 5 segundos antes de redirecionar
+          }, 2000);
           return;
         }
 
