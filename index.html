@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portões do Inferno</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #000 0%, #1a0000 100%);
+      color: #ff3333;
+      font-family: 'UnifrakturCook', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      background-image: url('https://i.imgur.com/1cYxV9z.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ffe600;
+      text-shadow: 0 0 20px #ff0000, 0 0 40px #aa0000;
+      margin-bottom: 20px;
+      animation: flicker 2s infinite;
+    }
+
+    #timer {
+      font-size: 4em;
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #660000;
+      animation: glitch 1s infinite;
+      letter-spacing: 3px;
+    }
+
+    #message {
+      font-size: 1.5em;
+      color: #fff;
+      text-shadow: 0 0 5px #ff0000;
+      margin-top: 30px;
+      animation: pulse 2s infinite;
+    }
+
+    #start-btn {
+      background: none;
+      border: 2px solid #ff0000;
+      color: #ff0000;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 30px;
+      font-family: 'UnifrakturCook', cursive;
+      animation: flicker 3s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+      75% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Os Portões Estão se Abrindo...</h1>
+  <div id="timer">00:00:00:00</div>
+  <div id="message"></div>
+  <button id="start-btn">Entrar</button>
+
+  <!-- Som de fundo -->
+  <audio id="bg-audio" loop>
+    <source src="ambiente.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <script>
+    const countdownDate = new Date("2025-06-07T03:33:00").getTime();
+    const timerElement = document.getElementById("timer");
+    const messageElement = document.getElementById("message");
+    const audio = document.getElementById("bg-audio");
+    const startBtn = document.getElementById("start-btn");
+
+    startBtn.addEventListener("click", () => {
+      audio.play();
+      startBtn.style.display = "none";
+      iniciarContagem();
+    });
+
+    function iniciarContagem() {
+      const countdown = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        if (distance <= 0) {
+          clearInterval(countdown);
+          timerElement.textContent = "00:00:00:00";
+          messageElement.innerHTML = "⛧ O selo foi quebrado. Eles estão entre nós. ⛧";
+          setTimeout(() => {
+            window.location.href = "https://purgatorio666.github.io/Inferno/"; // <-- ALTERE AQUI
+          }, 5000); // espera 5 segundos antes de redirecionar
+          return;
+        }
+
+        const days = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+
+        timerElement.textContent = `${days}:${hours}:${minutes}:${seconds}`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
